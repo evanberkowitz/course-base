@@ -1,0 +1,185 @@
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{slashed}
+\usepackage{xspace}
+\usepackage{bbm}
+\usepackage{ifthen}
+\usepackage[
+    colorlinks=true,
+    allcolors=blue
+]{hyperref}
+
+
+%%%%
+%%%%    Project Specifics
+%%%%
+
+\newcommand{\repoURL}{https://github.com/evanberkowitz/course-base}
+\newcommand{\contact}{\author{Dr.~Evan Berkowitz \\
+\href{mailto:}{email address}}}
+
+%%%%
+%%%%    Referring to Parts of the Document
+%%%%
+
+\newcommand{\secref}[1]{Sec.~\ref{sec:#1}}
+\newcommand{\Secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\appref}[1]{App.~\ref{sec:#1}}
+\newcommand{\Appref}[1]{Appendix~\ref{sec:#1}}
+\newcommand{\tabref}[1]{Tab.~\ref{tab:#1}\xspace}
+\newcommand{\Tabref}[1]{Table~\ref{tab:#1}\xspace}
+\newcommand{\figref}[1]{Fig.~\ref{fig:#1}\xspace}
+\newcommand{\Figref}[1]{Figure~\ref{fig:#1}\xspace}
+%\newcommand{\eqref}[1]{(\ref{eq:#1})\xspace}
+\newcommand{\Eqref}[1]{Equation~\ref{eq:#1}\xspace}
+\def\Ref#1{Ref.~\cite{#1}} % Use \def because some LaTeX installations define \Ref, others do not.
+\newcommand{\Reference}[1]{Reference~\cite{#1}}
+\newcommand{\Refs}[1]{Refs.~\cite{#1}}
+\newcommand{\References}[1]{References~\cite{#1}}
+
+%%%%
+%%%%    Referring to Parts of the GitHub Repository
+%%%%
+
+\newcommand{\issue}[1]{\href{\repoURL/issues/#1}{Issue #1}}
+\newcommand{\pullrequest}[1]{\href{\repoURL/pulls/#1}{Pull Request #1}}
+
+%%%%
+%%%%    Referring to Other Documents
+%%%%
+
+\providecommand{\doi}[1]{\href{http://doi.org/#1}{[#1]}}
+\newcommand{\arxiv}[1]{\href{http://www.arxiv.org/abs/#1}{arXiv:#1}}
+
+%%%%
+%%%%    Mathematical Symbols
+%%%%
+
+\newcommand{\goesto}{\ensuremath{\rightarrow}}
+\newcommand{\infinity}{\infty}
+\newcommand{\Integers}{\mathbb{Z}\xspace}
+\newcommand{\integers}{\Integers}
+\newcommand{\one}{\ensuremath{\mathbbm{1}}}
+\newcommand{\order}[1]{\ensuremath{\mathcal{O}\left(#1\right)}\xspace}
+\newcommand{\Rationals}{\mathbb{Q}\xspace}
+\newcommand{\Reals}{\mathbb{R}\xspace}
+\newcommand{\Complexes}{\mathbb{C}\xspace}
+\newcommand{\union}{\ensuremath{\cup}}
+\DeclareMathOperator{\erf}{erf}
+\newcommand{\laplace}[1]{\ensuremath{\mathcal{L}\left\{#1\right\}}\xspace}
+\newcommand{\inverselaplace}[1]{\ensuremath{\mathcal{L}\inverse\left\{#1\right\}}\xspace}
+\providecommand{\mod}[1]{\ensuremath{\ \left(\text{mod }#1\right)}}
+
+\DeclareMathOperator{\odd}{odd}
+\DeclareMathOperator{\even}{even}
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+
+%%%%
+%%%%    Hyperbolic Trig
+%%%%
+
+% Most are already available if you \usepackage{amsmath}.
+% However, those below are missing
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth}
+
+% Additionally, there are some missing trig functions:
+
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+
+%%%%
+%%%%    Fractions
+%%%%
+
+\newcommand{\oneover}[1]{\ensuremath{\frac{1}{#1}}}                             %   1/[argument]
+\newcommand{\inverse}{\ensuremath{^{-1}}}                                       %   argument^-1
+\providecommand{\half}{\ensuremath{\frac{1}{2}} }                               %   1/2
+\renewcommand{\half}{\ensuremath{\frac{1}{2}} }                                 %   1/2
+\newcommand{\quarter}{\ensuremath{\frac{1}{4}} }                                %   1/4
+
+%%%%
+%%%%    Derivatives
+%%%%
+
+% d^n f / dx^n
+\newcommand{\dd}[3][1]{
+    \ifthenelse { \equal {#1} {1} }
+                {\ensuremath{\frac{d#2}{d#3}}}
+                {\ensuremath{\frac{d^{#1}#2}{d#3^{#1}}}}
+    }
+
+% partial^n f / partial x^n
+\newcommand{\pp}[3][1]{
+    \ifthenelse { \equal {#1} {1} }
+                {\ensuremath{\frac{\partial#2}{\partial#3}}}
+                {\ensuremath{\frac{\partial^{#1}#2}{\partial#3^{#1}}}}
+    }
+
+% partial f / partial x partial y
+\newcommand{\ppp}[3]{\ensuremath{\frac{\partial^2#1}{\partial#2\,\partial#3}}}
+
+% Vector Derivatives 
+\newcommand{\grad}{\ensuremath{\nabla}\xspace}
+\newcommand{\laplacian}{\ensuremath{\grad^2}\xspace}
+
+% Integration d
+\providecommand{\id}{}
+\renewcommand{\id}[1]{\ensuremath{\; \mathrm{d}#1}}
+
+%%%%
+%%%%    Mathematical Delimiters
+%%%%
+\newcommand{\abs}[1]{\ensuremath{\left| #1 \right|}\xspace}
+\newcommand{\magnitude}{\abs}
+\newcommand{\average}[1]{\ensuremath{\left\langle #1 \right\rangle}\xspace}
+
+% Quantum mechanics bra-ket notation:
+\newcommand{\ket}[1]{\ensuremath{\left|\;#1\;\right\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\left\langle\;#1\;\right|}}
+\newcommand{\bracket}[2]{\ensuremath{\left\langle\;#1\;\middle|\;#2\;\right\rangle}}
+\let\braket\bracket
+\newcommand{\operator}[3]{\ensuremath{\left|\;#1\;\middle\rangle\; #2\; \middle\langle\;#3\;\right|}}
+
+%%%%
+%%%%    Matrices
+%%%%
+
+\newcommand{\identity}{\ensuremath{\mathds{1}}}
+\newcommand{\diag}[1]{\ensuremath{\text{diag}\left(#1\right)}}
+\newcommand{\tr}[1]{\ensuremath{\text{tr}\left[#1\right]}}
+\newcommand{\transpose}{\ensuremath{{}^{\top}}}
+\newcommand{\adjoint}{\ensuremath{{}^{\dagger}}}
+
+%%%%
+%%%%    Physical Quantities and Constants
+%%%%
+
+
+
+
+%%%%
+%%%%    Software
+%%%%
+
+\newcommand{\bash}{\texttt{bash}\xspace}
+\newcommand{\git}{\texttt{git}\xspace}
+\newcommand{\make}{\texttt{make}\xspace}
+\newcommand{\mpi}{\texttt{MPI}\xspace}
+\newcommand{\python}{\texttt{python}\xspace}
+
+% Put an xspace after \LaTeX:
+\let\builtinLaTeX\LaTeX
+\def\LaTeX{\builtinLaTeX\xspace}

@@ -1,0 +1,72 @@
+%\documentclass[aps,superscriptaddress,tightenlines,nofootinbib,floatfix,longbibliography,notitlepage]{revtex4-1}
+%\usepackage[left=18mm,right=19mm,top=23mm,bottom=16mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage{slashed}
+\usepackage[
+    colorlinks=true,
+    allcolors=blue
+]{hyperref}
+
+
+%%%
+%%%     Incorporate Repository Information
+%%%
+
+\providecommand{\repositoryInformationSetup}{} % Fallback definition if compiled with `make FINAL=1`.
+\repositoryInformationSetup
+
+%%%
+%%%     Include latex-base macros
+%%%
+
+%\input{macros} % input rather than include so we don't create macros.aux
+
+%%%%
+%%%%    Document preparation
+%%%%
+
+\pointsinleftmargin 
+\marginpointname{ points}
+\extrawidth{-0.5in}
+\begin{document}
+
+\title{Exam 01}
+\contact
+\date{February 25, 2021}
+
+\maketitle
+
+{\bf Turn in your solutions on canvas, as you have been turning in homework assignments.  If you are having problems with canvas, \href{mailto:evanb@umd.edu}{email me your solutions} \emph{immediately}.  If you are having problems digitizing your solutions, \href{mailto:evanb@umd.edu}{email me} \emph{immediately}.}
+
+\begin{itemize}
+	\item	Start by doing question 0 on this page---the honor pledge.
+	\item	Look over the exam before beginning.
+	\item	There are FIVE questions.  Do them ALL.
+	\item	They are worth 10, 20, 20, 20, and 30 points, respectively.  The exam is out of 100.  Manage your time wisely; partial credit is available.
+	\item	I have put each question on its own page.  
+	\item	{\bf There is a collection of possibly-useful integrals and reminders at the end of this exam.}
+	\item	Please join \href{https://umd.zoom.us/j/96037839765?pwd=c0FYMEVteHlKbkJNSU1JUko3RHZ5QT09}{the regularly-scheduled zoom} to hear any clarifications I might offer.
+\end{itemize}
+
+{\bf Write large and legibly!}
+
+
+\begin{questions}
+	%\setcounter{question}{-1} \input{question/honor-pledge}
+	\clearpage
+	\section*{Question Title}
+	\input{question/example}
+\end{questions}
+
+\ifprintanswers
+\else
+	\clearpage
+	\input{formula/sheet}
+\fi
+\end{document}
