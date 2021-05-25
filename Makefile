@@ -1,4 +1,4 @@
-TEX=pdflatex -halt-on-error -interaction=nonstopmode
+TEX=pdflatex 
 BIB=bibtex
 
 # SHELL needed for process substitution <()
@@ -13,6 +13,11 @@ QUESTIONS= $(shell find question -type f)
 FORMULAS= $(shell find formula -type f)
 BIBS = $(find . -name '*.bib')
 
+ifndef INTERACTIVE
+	TEX+=-halt-on-error -interaction=nonstopmode
+else
+	VERBOSE=1
+endif
 
 ifndef VERBOSE
 	REDIRECT=1>/dev/null 2>/dev/null
