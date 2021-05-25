@@ -1,0 +1,107 @@
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title[\class\ - Unit] %optional
+{
+	\class\ --- \classTitle \\
+	Unit
+}
+
+\author[Berkowitz] % (optional)
+{Evan Berkowitz\inst{1}}
+
+\institute[SHORT] % (optional)
+{
+  \inst{1}%
+  LONG AFFILIATION
+}
+
+\date[2021 \commit] % (optional)
+{\semester}
+
+%End of title page configuration block
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------
+%The next block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+
+\AtBeginSection[]
+{
+	\begin{frame}
+		\frametitle{Unit}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+%------------------------------------------------------------
+
+
+\begin{document}
+
+%The next statement creates the title page.
+\frame{\titlepage}
+
+
+\section{Introduction}
+	\begin{frame}[t]\frametitle{Frame Title}
+
+	\end{frame}
+
+	\begin{frame}[t]\frametitle{Frame with Tikz Picture}
+		
+		\begin{tikzpicture}
+			\begin{axis}[%
+				axis x line=center,
+				%ylabel={$y$},
+				%xlabel={$x$}, 
+				axis y line=middle,
+				xmin=-10, xmax=10,
+				ymin=-10, ymax=10,
+				xticklabels={},
+				yticklabels={}
+				]
+			\end{axis}
+		\end{tikzpicture}
+
+	\end{frame}
+
+	\begin{frame}[t]\frametitle{Frame with Equation}
+		$a^2+b^2=c^2$
+	\end{frame}
+
+	\begin{frame}[t]\frametitle{Resize Box}
+		\resizebox{\textwidth}{!}{
+			\begin{tikzpicture}
+				\begin{axis}[%
+					axis x line=center,
+					ylabel={$f(y)$, $\dot{y}$},
+					xlabel={$y$}, 
+					axis y line=middle,
+					xmin=-1, xmax=10,
+					ymin=-1, ymax=1,
+					xticklabels={},
+					yticklabels={}
+					]
+				\end{axis}
+			\end{tikzpicture}
+			\begin{tikzpicture}
+				\begin{axis}[%
+					axis x line=center,
+					ylabel={$y$},
+					xlabel={$x$}, 
+					axis y line=middle,
+					xmin=-1, xmax=10,
+					ymin=-1, ymax=8,
+					xticklabels={},
+					yticklabels={}
+					]
+				\end{axis}
+			\end{tikzpicture}
+		}
+
+	\end{frame}
+
+\end{document}
+

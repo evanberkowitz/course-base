@@ -30,6 +30,7 @@ endif
 DOCUMENT_CLASS=\documentclass[]{exam}
 %-solution.pdf: DOCUMENT_CLASS=\documentclass[answers]{exam}
 note/%.pdf: DOCUMENT_CLASS=\documentclass[aps,superscriptaddress,tightenlines,nofootinbib,floatfix,longbibliography,notitlepage]{revtex4-1}
+slide/%.pdf: DOCUMENT_CLASS=\documentclass{beamer}\input{slide/macros}
 
 .PRECIOUS: %.pdf
 %.pdf %-solution.pdf: $(GIT) $(QUESTIONS) macros.tex %.tex
