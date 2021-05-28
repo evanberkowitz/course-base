@@ -18,7 +18,7 @@ which you can change.
 
 ## Assignments and Exams
 
-Assignments and exams are prepared with the [exam class](http://www-math.mit.edu/~psh/exam/examdoc.pdf).  The makefile also provides solution targets, compiled with the `[answers]` option to the exam class.  You compile solutions by just adding `-solution` to the PDF target; `make assignment/00.pdf` and `make exam/01-solution.pdf`, for example.
+Assignments and exams are prepared with the [exam class](http://www-math.mit.edu/~psh/exam/examdoc.pdf).  The makefile also provides solution targets, compiled with the `[answers]` option to the exam class.  You compile solutions by just adding `-solution` to the PDF target; `make assignment/00-solution.pdf` and `make exam/01-solution.pdf`, for example.
 
 You can prepare a TeX template for the students to turn in homework, by `make assignment/00-template.tex`.  This uses [`latexpand`](https://www.ctan.org/pkg/latexpand) to make a self-contained document and `vim`'s multiline regex engine to snip out all of your solutions.
 
