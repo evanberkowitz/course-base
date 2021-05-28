@@ -1,6 +1,6 @@
 # course-base
 
-This repository provides a skeleton on which to prepare course materials, in the same spirit as evanberkowitz/latex-base.
+This repository provides a skeleton on which to prepare course materials, in the same spirit as [evanberkowitz/latex-base](https://github.com/evanberkowitz/latex-base).
 
 The idea is to store reusable course materials; with all of the specifics for a semester relegated to a subdirectory of `semester`.
 
