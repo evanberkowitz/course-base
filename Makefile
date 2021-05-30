@@ -85,3 +85,4 @@ clean: tidy
 distclean: clean
 	$(RM) -r */*.pdf
 
+examples: slide/01-unit.pdf note/greek.pdf exam/01.pdf exam/01-solution.pdf assignment/00.pdf assignment/00-solution.pdf
