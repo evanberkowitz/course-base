@@ -37,7 +37,7 @@ assignment/%.pdf exam/%.pdf: MACROS+=\input{solution}
 
 .PRECIOUS: %.pdf
 %.pdf %-solution.pdf: $(GIT) $(QUESTIONS) macros.tex %.tex
-	@echo $@
+	@echo -e "\n\n=====================================\n$@\n"
 	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
 	-$(BIB) $* $(REDIRECT)
 	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
@@ -49,7 +49,7 @@ assignment/%.pdf exam/%.pdf: MACROS+=\input{solution}
 # First, we prepare a tex file that has anything inside of a solution environment deleted.
 .PRECIOUS: %-template.tex
 %-template.tex: $(GIT) $(QUESTIONS) macros.tex %.tex
-	@echo $@
+	@echo -e "\n\n=====================================\n$@\n"
 	# This uses latexpand to get everything into a single file, 
 	# and then uses a multiline vim regex to replace the solutions with blank spaces.
 	
@@ -59,7 +59,7 @@ assignment/%.pdf exam/%.pdf: MACROS+=\input{solution}
 # We compile in an un-fancy way, as a student might, to make sure it works.
 .PRECIOUS: %-template.pdf
 %-template.pdf: %-template.tex
-	@echo $@
+	@echo -e "\n\n=====================================\n$@\n"
 	$(TEX) -jobname=$*-template "\input{$*-template}" $(REDIRECT)
 	-$(BIB) $* $(REDIRECT)
 	$(TEX) -jobname=$*-template "\input{$*-template}" $(REDIRECT)
