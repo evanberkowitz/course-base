@@ -74,10 +74,14 @@ exam/%: exam/%.pdf exam/%-solution.pdf
 # We can tidy up, deleting all the useless TeX auxiliary files.
 .PHONY: tidy
 tidy:
-	$(RM) ./{note/,assignment/,exam/,}*.{out,log,aux,synctex.gz,blg,toc,fls,fdb_latexmk,nav,snm,Notes.bib}
+	$(RM) ./{note/,assignment/,exam/,slide/}*.{out,log,aux,synctex.gz,blg,toc,fls,fdb_latexmk,nav,snm,Notes.bib}
 
 # We can clean up, deleting even the generated template.tex and .pdf, and the .bbl
 .PHONY: clean
 clean: tidy
 	$(RM) -r */*-template.{tex,pdf}
-	$(RM) ./{note/,assignment/,exam/,}*.bbl
+	$(RM) ./{note/,assignment/,exam/,slide/}*.bbl
+
+distclean: clean
+	$(RM) -r */*.pdf
+
