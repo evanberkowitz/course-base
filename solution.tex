@@ -1,0 +1,31 @@
+
+% Two counters to count equations separately.
+\newcounter{equationWithoutSolution}
+\newcounter{equationSolution}
+
+% All equation counters get reset for a new question.
+\numberwithin{equation}{question}
+\numberwithin{equationSolution}{question}
+\numberwithin{equationWithoutSolution}{question}
+
+% Store the old equation number printing procedure 
+% and solution environment.
+\let\theequationold\theequation
+\let\solutionold\solution
+\let\endsolutionold\endsolution
+
+% Rewrite the solution environment, switching the value of 
+% the equation counter back and forth, and adding an S
+% when the solution equations are printed.
+
+\renewenvironment{solution}{
+	\setcounter{equationWithoutSolution}{\value{equation}}
+	\setcounter{equation}{\value{equationSolution}}
+	\renewcommand{\theequation}{S\theequationold}
+	\solutionold
+}{
+	\endsolutionold
+	\renewcommand{\theequation}{\theequationold}
+	\setcounter{equationSolution}{\value{equation}}
+	\setcounter{equation}{\value{equationWithoutSolution}}
+}

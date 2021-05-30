@@ -32,13 +32,16 @@ DOCUMENT_CLASS=\documentclass[]{exam}
 note/%.pdf: DOCUMENT_CLASS=\documentclass[aps,superscriptaddress,tightenlines,nofootinbib,floatfix,longbibliography,notitlepage]{revtex4-1}
 slide/%.pdf: DOCUMENT_CLASS=\documentclass{beamer}\input{slide/macros}
 
+MACROS=\input{macros}
+assignment/%.pdf exam/%.pdf: MACROS+=\input{solution}
+
 .PRECIOUS: %.pdf
 %.pdf %-solution.pdf: $(GIT) $(QUESTIONS) macros.tex %.tex
 	@echo $@
-	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)\input{macros}\input{$*}" $(REDIRECT)
+	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
 	-$(BIB) $* $(REDIRECT)
-	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)\input{macros}\input{$*}" $(REDIRECT)
-	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)\input{macros}\input{$*}" $(REDIRECT)
+	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
+	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
 	$(MAKE) tidy
 
 # Templates are LaTeX files for assignments but with the answers stripped out.
