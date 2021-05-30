@@ -4,7 +4,7 @@ This repository provides a skeleton on which to prepare course materials, in the
 
 The idea is to store reusable course materials; with all of the specifics for a semester relegated to a subdirectory of `semester`.
 
-The assumption is that materials will be prepared via LaTeX, and that most macros will be common to the whole course, put in `macros.tex`.  To prepare any given assignment, exam, note, or set of slides one need only use `make`.  Valid obvious examples with the repository as-is include `make assignment/00.pdf`, `make exam/01.pdf`, `make note/greek.pdf`, `make note/syllabus.pdf`, `make slide/01-unit.pdf`.
+The assumption is that materials will be prepared via LaTeX, and that most macros will be common to the whole course, put in `macros.tex`.  To prepare any given assignment, exam, note, or set of slides one need only use `make`.  Valid obvious examples with the repository as-is include `make assignment/00.pdf`, `make exam/00.pdf`, `make note/greek.pdf`, `make note/syllabus.pdf`, `make slide/00-unit.pdf`.
 
 ## Notes
 
@@ -18,7 +18,7 @@ which you can change.
 
 ## Assignments and Exams
 
-Assignments and exams are prepared with the [exam class](http://www-math.mit.edu/~psh/exam/examdoc.pdf).  The makefile also provides solution targets, compiled with the `[answers]` option to the exam class.  You compile solutions by just adding `-solution` to the PDF target; `make assignment/00-solution.pdf` and `make exam/01-solution.pdf`, for example.
+Assignments and exams are prepared with the [exam class](http://www-math.mit.edu/~psh/exam/examdoc.pdf).  The makefile also provides solution targets, compiled with the `[answers]` option to the exam class.  You compile solutions by just adding `-solution` to the PDF target; `make assignment/00-solution.pdf` and `make exam/00-solution.pdf`, for example.
 
 You can prepare a TeX template for the students to turn in homework, by `make assignment/00-template.tex`.  This uses [`latexpand`](https://www.ctan.org/pkg/latexpand) to make a self-contained document and `vim`'s multiline regex engine to snip out all of your solutions.
 
