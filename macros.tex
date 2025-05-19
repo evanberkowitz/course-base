@@ -1,7 +1,9 @@
+\usepackage{enumitem}
 \usepackage{amsmath,amssymb}
+\usepackage{siunitx}
 \usepackage{bm}
 \usepackage{graphicx}
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{slashed}
 \usepackage{xspace}
 \usepackage{bbm}
@@ -13,6 +15,11 @@
     filecolor=blue,
     urlcolor=blue,
     }
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
 
 %%%%
 %%%%    Project Specifics
@@ -38,8 +45,9 @@
 \newcommand{\Tabref}[1]{Table~\ref{tab:#1}\xspace}
 \newcommand{\figref}[1]{Fig.~\ref{fig:#1}\xspace}
 \newcommand{\Figref}[1]{Figure~\ref{fig:#1}\xspace}
-%\newcommand{\eqref}[1]{(\ref{eq:#1})\xspace}
+\renewcommand{\eqref}[1]{(\ref{eq:#1})\xspace}
 \newcommand{\Eqref}[1]{Equation~\ref{eq:#1}\xspace}
+\newcommand{\eq}[1]{#1~\eqref{#1}}
 \def\Ref#1{Ref.~\cite{#1}} % Use \def because some LaTeX installations define \Ref, others do not.
 \newcommand{\Reference}[1]{Reference~\cite{#1}}
 \newcommand{\Refs}[1]{Refs.~\cite{#1}}
@@ -83,6 +91,16 @@
 \DeclareMathOperator{\sinc}{sinc}
 \DeclareMathOperator{\real}{Re}
 \DeclareMathOperator{\imag}{Im}
+
+%%%%
+%%%% Vectors + Geometry
+%%%%
+
+\newcommand{\degrees}{\ensuremath{{}^{\circ}}}
+\newcommand{\ihat}{\,\hat{\textbf{\i}}}
+\newcommand{\jhat}{\,\hat{\textbf{\j}}}
+\newcommand{\khat}{\,\hat{\textbf{k}}}
+\newcommand{\cross}{\times}
 
 %%%%
 %%%%    Hyperbolic Trig

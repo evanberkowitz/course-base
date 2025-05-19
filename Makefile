@@ -11,6 +11,7 @@ GIT= .git/HEAD .git/index
 
 QUESTIONS= $(shell find question -type f)
 FORMULAS= $(shell find formula -type f)
+EXPERIMENTS= $(shell find lab-manual -type f -name '*.tex')
 BIBS = $(find . -name '*.bib')
 
 ifndef INTERACTIVE
@@ -36,7 +37,15 @@ MACROS=\input{macros}
 assignment/%.pdf exam/%.pdf: MACROS+=\input{solution}
 
 .PRECIOUS: %.pdf
-%.pdf %-solution.pdf: $(GIT) $(QUESTIONS) macros.tex %.tex
+%-solution.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex
+	@echo -e "\n\n=====================================\n$@\n"
+	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
+	-$(BIB) $* $(REDIRECT)
+	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
+	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
+	$(MAKE) tidy
+
+%.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex
 	@echo -e "\n\n=====================================\n$@\n"
 	$(TEX) -jobname=$(basename $@) "$(DOCUMENT_CLASS)$(OPTIONS)$(MACROS)\input{$*}" $(REDIRECT)
 	-$(BIB) $* $(REDIRECT)
@@ -77,14 +86,14 @@ exam/%: exam/%.pdf exam/%-solution.pdf
 # We can tidy up, deleting all the useless TeX auxiliary files.
 .PHONY: tidy
 tidy:
-	$(RM) ./{note/,assignment/,exam/,slide/}*.{out,log,aux,synctex.gz,blg,toc,fls,fdb_latexmk,nav,snm}
-	$(RM) ./note/*Notes.bib
+	$(RM) ./{note/,assignment/,exam/,slide/,lab-manual/}*.{out,log,aux,synctex.gz,blg,toc,fls,fdb_latexmk,nav,snm}
+	$(RM) ./{note/,assignment/,exam/,slide/,lab-manual/}*Notes.bib
 
 # We can clean up, deleting even the generated template.tex and .pdf, and the .bbl
 .PHONY: clean
 clean: tidy
 	$(RM) -r */*-template.{tex,pdf}
-	$(RM) ./{note/,assignment/,exam/,slide/}*.bbl
+	$(RM) ./{note/,assignment/,exam/,slide/,lab-manual/}*.bbl
 
 distclean: clean
 	$(RM) -r */*.pdf
