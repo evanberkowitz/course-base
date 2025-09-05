@@ -29,12 +29,26 @@ ifndef FINAL
 endif
 
 DOCUMENT_CLASS=\documentclass[]{exam}
+
+.PHONY: semester/%
+# Change your semester to your current semester.
+# Hard-coding this prevents you from accidentally overwriting material from previous semesters.
+semester/2025-08/%-solution.pdf: %-solution.pdf
+		touch $*.tex
+		$(MAKE) $*-solution.pdf FINAL=1
+		cp $*-solution.pdf $@
+
+semester/2025-08/%.pdf: %.pdf
+		touch $*.tex
+		$(MAKE) $*.pdf FINAL=1
+		cp $*.pdf $@
+
 %-solution.pdf: DOCUMENT_CLASS=\documentclass[answers]{exam}
 note/%.pdf: DOCUMENT_CLASS=\documentclass[aps,superscriptaddress,tightenlines,nofootinbib,floatfix,longbibliography,notitlepage]{revtex4-1}
 slide/%.pdf: DOCUMENT_CLASS=\documentclass{beamer}\input{slide/macros}
 
 MACROS=\input{macros}
-assignment/%.pdf exam/%.pdf: MACROS+=\input{solution}
+assignment/%.pdf exam/%.pdf quiz/%.pdf: MACROS+=\input{solution}
 
 .PRECIOUS: %.pdf
 %-solution.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex

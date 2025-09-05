@@ -1,0 +1,50 @@
+%%%
+%%%     Incorporate Repository Information
+%%%
+
+\providecommand{\repositoryInformationSetup}{} % Fallback definition if compiled with `make FINAL=1`.
+\repositoryInformationSetup
+
+%%%%
+%%%%    Document preparation
+%%%%
+
+\pointsinleftmargin 
+\marginpointname{ points}
+\extrawidth{-0.5in}
+\begin{document}
+
+\title{Quiz 00}
+\contact
+\date{February 25, 2021}
+
+\maketitle
+
+This is a quiz, it's a short exam.
+
+\begin{itemize}
+	\item	Start by doing question 0 on this page---the honor pledge.
+	\item	Look over the exam before beginning.
+	\item	There are FIVE questions.  Do them ALL.
+	\item	They are worth 10, 20, 20, 20, and 30 points, respectively.  The exam is out of 100.  Manage your time wisely; partial credit is available.
+	\item	I have put each question on its own page.  
+	\item	{\bf There is a collection of possibly-useful integrals and reminders at the end of this exam.}
+	\item	Please join \href{}{the regularly-scheduled zoom} to hear any clarifications I might offer.
+\end{itemize}
+
+{\bf Write large and legibly!}
+
+
+\begin{questions}
+	%\setcounter{question}{-1} \input{question/honor-pledge}
+	\clearpage
+	\section*{Question Title}
+	\input{question/example}
+\end{questions}
+
+\ifprintanswers
+\else
+	\clearpage
+	\input{formula/sheet}
+\fi
+\end{document}
