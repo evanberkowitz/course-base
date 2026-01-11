@@ -1,5 +1,8 @@
 TEX=pdflatex 
 BIB=bibtex
+# Change your semester to your current semester.
+# Hard-coding this prevents you from accidentally overwriting material from previous semesters.
+SEMESTER=2026-01
 
 # SHELL needed for process substitution <()
 SHELL := /bin/bash
@@ -31,14 +34,12 @@ endif
 DOCUMENT_CLASS=\documentclass[]{exam}
 
 .PHONY: semester/%
-# Change your semester to your current semester.
-# Hard-coding this prevents you from accidentally overwriting material from previous semesters.
-semester/2025-08/%-solution.pdf: %-solution.pdf
+semester/$(SEMESTER)/%-solution.pdf: %-solution.pdf
 		touch $*.tex
 		$(MAKE) $*-solution.pdf FINAL=1
 		cp $*-solution.pdf $@
 
-semester/2025-08/%.pdf: %.pdf
+semester/$(SEMESTER)2025-08/%.pdf: %.pdf
 		touch $*.tex
 		$(MAKE) $*.pdf FINAL=1
 		cp $*.pdf $@
