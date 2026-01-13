@@ -36,21 +36,26 @@ echo OLD is ${OLD} >&2
 echo NEW is ${NEW} >&2
 files_changed=`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`
 
-if [[ "${files_changed}" == "1" ]]; then
-	files_changed="${files_changed} file"
-else
-	files_changed="${files_changed} files"
-fi
-
-result='\texttt{'"${NEWPRINT}"'} differs from commit \texttt{'"${OLDPRINT}"'}'" in ${files_changed}"
+# Get the short commit hash
+SHORT_COMMIT=$(git rev-parse --short ${OLD} 2>/dev/null || echo "${OLDPRINT}")
+SHORT_COMMIT=${SHORT_COMMIT/\~/\{\\textasciitilde\}}
 
 # Turn red if there are dirty files.
-if [[ ! "${files_changed:0:1}" == "0" ]]; then
-    result="{\color{red}${result}}"
-    commit="{\color{red}${OLDPRINT}}"
-else
+if [[ "${files_changed:0:1}" == "0" ]]; then
+    # Clean repo - simple message
+    result="git commit \\texttt{${SHORT_COMMIT}}"
     result="{\color{green}${result}}"
-    commit="{\color{green}${OLDPRINT}}"
+    commit="{\color{green}${SHORT_COMMIT}}"
+else
+    # Dirty repo - show difference message
+    if [[ "${files_changed}" == "1" ]]; then
+        files_changed="${files_changed} file"
+    else
+        files_changed="${files_changed} files"
+    fi
+    result="-{}- differs from git commit \\texttt{${SHORT_COMMIT}} in ${files_changed}"
+    result="{\color{red}${result}}"
+    commit="{\color{red}${SHORT_COMMIT}}"
 fi
 
 result="\newcommand{\repositoryInformationSetup}{
