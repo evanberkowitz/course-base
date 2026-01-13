@@ -5,8 +5,6 @@ LATEXMK_FLAGS = -pdf
 
 # Git tracking
 GIT = .git/HEAD .git/index
-OLD ?= $(shell git rev-parse --short HEAD)
-NEW ?= --
 
 # Find all source files
 QUESTIONS = $(shell find question -type f 2>/dev/null)
@@ -17,8 +15,6 @@ EXPERIMENTS = $(shell find lab-manual -type f -name '*.tex' 2>/dev/null)
 export FINAL
 export INTERACTIVE
 export VERBOSE
-export OLD
-export NEW
 
 # Verbosity control
 ifndef VERBOSE
@@ -45,7 +41,7 @@ semester/$(SEMESTER)2025-08/%.pdf: %.pdf
 # Main PDF targets - latexmk handles dependencies automatically
 # Removed tidy from individual targets for parallel safety
 .PRECIOUS: %.pdf
-%-solution.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex
+%-solution.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex solution.tex %.tex
 	$(LATEXMK) $(LATEXMK_FLAGS) $*.tex
 
 %.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex
@@ -59,16 +55,14 @@ semester/$(SEMESTER)2025-08/%.pdf: %.pdf
 		-c "w! $*-template.tex" -c ":q!" -
 
 .PRECIOUS: %-template.pdf
+# This is a direct invocation of latexmk, avoiding the wrapper script, because the template files are already complete standalone latexpanded files with all macros etc.
 %-template.pdf: %-template.tex
 	latexmk -pdf $(if $(VERBOSE),,-silent) -jobname=$*-template $*-template.tex
 
 # Phony targets for convenience
 .PHONY: assignment/% exam/%
 assignment/%: assignment/%.pdf assignment/%-solution.pdf assignment/%-template.pdf
-	@echo $@
-
 exam/%: exam/%.pdf exam/%-solution.pdf
-	@echo $@
 
 # Cleanup - now separate from compilation for parallel safety
 .PHONY: tidy

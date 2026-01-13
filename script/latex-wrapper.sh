@@ -28,10 +28,10 @@ DOC_CLASS="\\documentclass[]{exam}"
 MACROS="\\input{macros}"
 OPTIONS=""
 
-# Check if FINAL is set
+# Check if FINAL is set - if not, add git overlay
 if [ -z "$FINAL" ]; then
-    OLD="${OLD:-$(git rev-parse --short HEAD 2>/dev/null || echo HEAD)}"
-    NEW="${NEW:---}"
+    OLD=$(git rev-parse --short HEAD 2>/dev/null || echo HEAD)
+    NEW="--"
     OPTIONS=$(./script/git.sh "$OLD" "$NEW" 2>/dev/null || echo "")
 fi
 
