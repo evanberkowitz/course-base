@@ -14,47 +14,27 @@ if [ -z "$NEW" ]; then
 	NEW="--"
 fi
 
-# Double hyphens is a ligature in TeX:
-if [ "--" == "${NEW}" ]; then
-	NEWPRINT="-{}-"
-else
-	NEWPRINT="${NEW}"
-fi
-
-# Handle commit IDs that have ~ in them, like HEAD~3
-OLDPRINT=${OLD/\~/\{\\textasciitilde\}}
-NEWPRINT=${NEWPRINT/\~/\{\\textasciitilde\}}
-
 pushd ${GIT} 2>/dev/null 1>/dev/null
 
-echo "Deducing diff..." >&2
+files_changed=$(git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:])
 
-echo git branches are >&2
-git branch -vv >&2
-
-echo OLD is ${OLD} >&2
-echo NEW is ${NEW} >&2
-files_changed=`git diff --name-only ${OLD} ${NEW} 2>/dev/null | wc -l | tr -d [:blank:]`
-
-# Get the short commit hash
-SHORT_COMMIT=$(git rev-parse --short ${OLD} 2>/dev/null || echo "${OLDPRINT}")
+# Get the short commit hash, with fallback that handles ~ characters
+SHORT_COMMIT=$(git rev-parse --short ${OLD} 2>/dev/null || echo "${OLD}")
 SHORT_COMMIT=${SHORT_COMMIT/\~/\{\\textasciitilde\}}
 
-# Turn red if there are dirty files.
-if [[ "${files_changed:0:1}" == "0" ]]; then
+# Build message based on whether repo is clean or dirty
+if [[ "${files_changed}" == "0" ]]; then
     # Clean repo - simple message
-    result="git commit \\texttt{${SHORT_COMMIT}}"
-    result="{\color{green}${result}}"
-    commit="{\color{green}${SHORT_COMMIT}}"
+    result="{\color{ForestGreen}\\texttt{git commit ${SHORT_COMMIT}}}"
+    commit="{\color{ForestGreen}${SHORT_COMMIT}}"
 else
     # Dirty repo - show difference message
     if [[ "${files_changed}" == "1" ]]; then
-        files_changed="${files_changed} file"
+        files_text="${files_changed} file differs"
     else
-        files_changed="${files_changed} files"
+        files_text="${files_changed} files differ"
     fi
-    result="-{}- differs from git commit \\texttt{${SHORT_COMMIT}} in ${files_changed}"
-    result="{\color{red}${result}}"
+    result="{\color{red}${files_text} from \\texttt{git commit ${SHORT_COMMIT}}}"
     commit="{\color{red}${SHORT_COMMIT}}"
 fi
 
@@ -66,8 +46,6 @@ result="\newcommand{\repositoryInformationSetup}{
 }
 \newcommand{\commit}{{${commit}}}"
 
-
 popd 2>/dev/null 1>/dev/null
 
 echo "${result}"
-
