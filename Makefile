@@ -51,15 +51,10 @@ semester/$(SEMESTER)2025-08/%.pdf: %.pdf
 %.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex
 	$(LATEXMK) $(LATEXMK_FLAGS) $*.tex
 
-# Template generation (unchanged logic)
+# Template generation - templates never get git overlay
 .PRECIOUS: %-template.tex
 %-template.tex: $(GIT) $(QUESTIONS) macros.tex %.tex
-	@if [ -z "$(FINAL)" ]; then \
-		OLD="$(OLD)" NEW="$(NEW)" OPTIONS=$$(./script/git.sh "$(OLD)" "$(NEW)" 2>/dev/null || echo ""); \
-	else \
-		OPTIONS=""; \
-	fi; \
-	latexpand <(latexpand <( echo -E "\documentclass[answers]{exam}$$OPTIONS\input{macros}\input{$*}" )) | \
+	latexpand <(latexpand <( echo -E "\documentclass[answers]{exam}\input{macros}\input{$*}" )) | \
 		vim -c ":%s/\\\\begin{solution}\_.\{-}\\\\end{solution}/\\\\begin{solution}\\\\end{solution}/g" \
 		-c "w! $*-template.tex" -c ":q!" -
 
