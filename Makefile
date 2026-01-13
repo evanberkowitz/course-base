@@ -33,7 +33,7 @@ semester/$(SEMESTER)/%-solution.pdf: %-solution.pdf
 	$(MAKE) $*-solution.pdf FINAL=1
 	cp $*-solution.pdf $@
 
-semester/$(SEMESTER)2025-08/%.pdf: %.pdf
+semester/$(SEMESTER)/%.pdf: %.pdf
 	touch $*.tex
 	$(MAKE) $*.pdf FINAL=1
 	cp $*.pdf $@
@@ -42,7 +42,7 @@ semester/$(SEMESTER)2025-08/%.pdf: %.pdf
 # Removed tidy from individual targets for parallel safety
 .PRECIOUS: %.pdf
 %-solution.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex solution.tex %.tex
-	$(LATEXMK) $(LATEXMK_FLAGS) $*.tex
+	$(LATEXMK) $(LATEXMK_FLAGS) $*-solution.tex
 
 %.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex
 	$(LATEXMK) $(LATEXMK_FLAGS) $*.tex

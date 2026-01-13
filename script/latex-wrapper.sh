@@ -35,10 +35,17 @@ if [ -z "$FINAL" ]; then
     OPTIONS=$(./script/git.sh "$OLD" "$NEW" 2>/dev/null || echo "")
 fi
 
+# Determine jobname from base filename (full path without .tex extension)
+# This must be set BEFORE we strip -solution for solution files
+JOBNAME="${BASE%.tex}"
+
+# Store original BASE to check document type before stripping
+ORIGINAL_BASE="$BASE"
+
 # Determine document type based on base filename
 if [[ "$BASE" == *"-solution.tex" ]]; then
     DOC_CLASS="\\documentclass[answers]{exam}"
-    BASE="${BASE%-solution.tex}"
+    BASE="${BASE%-solution.tex}.tex"
 elif [[ "$BASE" == note/* ]]; then
     DOC_CLASS="\\documentclass[aps,superscriptaddress,tightenlines,nofootinbib,floatfix,longbibliography,notitlepage]{revtex4-1}"
 elif [[ "$BASE" == slide/* ]]; then
@@ -47,20 +54,22 @@ elif [[ "$BASE" == slide/* ]]; then
     DOC_CLASS="\\PassOptionsToPackage{dvipsnames}{xcolor}\\documentclass{beamer}\\input{slide/macros}"
 fi
 
-# Add solution.tex for assignments, exams, quizzes
-if [[ "$BASE" == assignment/* || "$BASE" == exam/* || "$BASE" == quiz/* ]]; then
-    MACROS+="\\input{solution}"
-fi
+# Add solution.tex for assignments, exams, quizzes, lab manuals
+# Check original BASE (before -solution stripping) to determine document type
+case "$ORIGINAL_BASE" in
+    assignment/*| \
+    exam/*|       \
+    quiz/*|       \
+    lab-manual/*)
+        MACROS+="\\input{solution}"
+        ;;
+esac
 
 # Create temporary wrapper file with injected preamble
 cat > "$TMPFILE" <<EOF
 $DOC_CLASS$OPTIONS$MACROS
 \input{$BASE}
 EOF
-
-# Determine jobname from original base (full path without .tex extension)
-# This ensures bibtex and other tools use the correct paths
-JOBNAME="${BASE%.tex}"
 
 # Run latexmk on the temp file with the correct jobname
 # This ensures bibtex uses the correct base name and paths
