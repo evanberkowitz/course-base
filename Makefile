@@ -46,19 +46,16 @@ semester/$(SEMESTER)2025-08/%.pdf: %.pdf
 # Removed tidy from individual targets for parallel safety
 .PRECIOUS: %.pdf
 %-solution.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex
-	@echo -e "\n\n=====================================\n$@\n"
 	$(LATEXMK) $(LATEXMK_FLAGS) $*.tex
 
 %.pdf: $(GIT) $(QUESTIONS) $(EXPERIMENTS) macros.tex %.tex
-	@echo -e "\n\n=====================================\n$@\n"
 	$(LATEXMK) $(LATEXMK_FLAGS) $*.tex
 
 # Template generation (unchanged logic)
 .PRECIOUS: %-template.tex
 %-template.tex: $(GIT) $(QUESTIONS) macros.tex %.tex
-	@echo -e "\n\n=====================================\n$@\n"
 	@if [ -z "$(FINAL)" ]; then \
-		OLD="$(OLD)" NEW="$(NEW)" OPTIONS=$$(./repo/git.sh "$(OLD)" "$(NEW)" 2>/dev/null || echo ""); \
+		OLD="$(OLD)" NEW="$(NEW)" OPTIONS=$$(./script/git.sh "$(OLD)" "$(NEW)" 2>/dev/null || echo ""); \
 	else \
 		OPTIONS=""; \
 	fi; \
@@ -68,7 +65,6 @@ semester/$(SEMESTER)2025-08/%.pdf: %.pdf
 
 .PRECIOUS: %-template.pdf
 %-template.pdf: %-template.tex
-	@echo -e "\n\n=====================================\n$@\n"
 	latexmk -pdf $(if $(VERBOSE),,-silent) -jobname=$*-template $*-template.tex
 
 # Phony targets for convenience

@@ -65,3 +65,4 @@ result="\newcommand{\repositoryInformationSetup}{
 popd 2>/dev/null 1>/dev/null
 
 echo "${result}"
+

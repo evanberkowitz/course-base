@@ -3,6 +3,8 @@
 
 set -e
 
+echo "====================================="
+
 # The base file is the last argument, flags come first
 # e.g., ./script.sh -pdf -silent assignment/00.tex
 BASE="${@: -1}"  # Last argument
@@ -30,7 +32,7 @@ OPTIONS=""
 if [ -z "$FINAL" ]; then
     OLD="${OLD:-$(git rev-parse --short HEAD 2>/dev/null || echo HEAD)}"
     NEW="${NEW:---}"
-    OPTIONS=$(./repo/git.sh "$OLD" "$NEW" 2>/dev/null || echo "")
+    OPTIONS=$(./script/git.sh "$OLD" "$NEW" 2>/dev/null || echo "")
 fi
 
 # Determine document type based on base filename
