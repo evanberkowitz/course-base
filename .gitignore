@@ -32,6 +32,7 @@ semester/*
 *.dvi
 *.xdv
 *-converted-to.*
+*.latex-wrapper-*.tex
 # these rules might exclude image files for figures etc.
 # *.ps
 # *.eps
