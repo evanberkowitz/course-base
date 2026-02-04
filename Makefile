@@ -28,14 +28,8 @@ endif
 
 # Semester archive targets
 .PHONY: semester/%
-semester/$(SEMESTER)/%-solution.pdf: %-solution.pdf
-	touch $*.tex
-	$(MAKE) $*-solution.pdf FINAL=1
-	cp $*-solution.pdf $@
-
 semester/$(SEMESTER)/%.pdf: %.pdf
-	touch $*.tex
-	$(MAKE) $*.pdf FINAL=1
+	mkdir -p $(dir $@)
 	cp $*.pdf $@
 
 # Main PDF targets - latexmk handles dependencies automatically
